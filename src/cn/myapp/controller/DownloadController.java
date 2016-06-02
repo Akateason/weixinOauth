@@ -31,24 +31,24 @@ public class DownloadController extends Controller {
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			testbiz();
-
+			
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			testbiz();
-
+			
 			e.printStackTrace();
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			
 			testbiz();
-
+			
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			
 			testbiz();
-
+			
 			e.printStackTrace();
 		} 
 		
