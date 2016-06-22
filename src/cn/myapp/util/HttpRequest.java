@@ -51,15 +51,15 @@ public class HttpRequest {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            connection.setRequestProperty("Content-Type","application/json;UTF-8"); 
+            
+            connection.setRequestProperty("Content-Type","text/html;charset=utf-8");
+            
+//            connection.setRequestProperty("charsert", "UTF-8");            
+//            connection.setRequestProperty("Content-Type","application/json;UTF-8");
+                        
 //            connection.setRequestProperty("Content-Encoding", "gzip") ;
-//            connection.setRequestProperty("Content-Type","text/html;charset=utf-8");
 //            connection.setRequestProperty("Content-Type","application/json");
-//            application/json
-            //"text/html;charset=utf-8"
-//            connection.setRequestProperty("charsert", "UTF-8");
-            
-            
+                                    
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -256,6 +256,15 @@ public class HttpRequest {
     	HttpResponse<JsonNode> jsonResponse = request.asJson() ;
     	String returnString = jsonResponse.getBody().toString() ;         
     	return returnString ;    	    
+    }
+    
+    public static String doGet(String urlComplete) throws UnirestException {
+    	GetRequest request = Unirest.get(urlComplete) ;
+    	HttpResponse<String> response = request.asString() ;
+    	String returnString = response.getBody().toString() ;
+//    	HttpResponse<JsonNode> jsonResponse = request.asJson() ;
+//    	String returnString = jsonResponse.getBody().toString() ;         
+    	return returnString ;   
     }
     
 }

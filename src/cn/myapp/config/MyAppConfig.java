@@ -3,7 +3,7 @@
  */
 package cn.myapp.config;
 
-import cn.myapp.controller.DownloadController;
+import cn.myapp.controller.WeixinOauthController;
 import java.io.IOException;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -17,7 +17,6 @@ import com.mashape.unirest.http.Unirest;
 
 /**
  * @author teason
- *
  */
 public class MyAppConfig extends JFinalConfig {
 
@@ -35,8 +34,7 @@ public class MyAppConfig extends JFinalConfig {
 	 */
 	@Override
 	public void configRoute(Routes me) {		
-		me.add("/down",DownloadController.class) ;
-		
+		me.add("/weixin",WeixinOauthController.class) ;		
 	}
 	
 	/* (non-Javadoc)
@@ -44,13 +42,12 @@ public class MyAppConfig extends JFinalConfig {
 	 */
 	@Override
 	public void configPlugin(Plugins me) {
-		C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://127.0.0.1:3306/bigdata?useUnicode=true&characterEncoding=utf8",
+		C3p0Plugin cp = new C3p0Plugin("jdbc:mysql://127.0.0.1:3306/activity?useUnicode=true&characterEncoding=utf8",
 				"root", "") ;
 		
 		me.add(cp) ;
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(cp) ;
 		me.add(arp) ;
-
 	}
 	
 	/* (non-Javadoc)
