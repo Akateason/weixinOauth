@@ -1,3 +1,5 @@
 
+kAPPID=wxffca5211abc0d92c
+kSecret=21158d3cc7b5490beca1ead8cfedc32c 
+kRedirectUrl=http://wei.subaojiang.com/wxapp/weixin/listener
 
-fish={ kAPPID:"wxffca5211abc0d92c", kSecret:"21158d3cc7b5490beca1ead8cfedc32c", kRedirectUrl:"http://wei.subaojiang.com/wxapp/weixin/listener" }

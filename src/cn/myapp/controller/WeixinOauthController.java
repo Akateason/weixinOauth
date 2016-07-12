@@ -2,7 +2,7 @@ package cn.myapp.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+//import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -14,12 +14,13 @@ import com.weixin.oauth.model.WeixinOauth2Token;
 
 import cn.myapp.util.UrlEncode;
 import cn.myapp.util.weixin.AdvancedUtil;
+import cn.myapp.util.weixin.AppPageUtil;
 import cn.myapp.util.weixin.OauthConfigUtil;
 
+//	/weixin
 public class WeixinOauthController extends Controller {
-		
+	
 	// static 
-	//private final static String kURL_accesstoken = "https://api.weixin.qq.com/cgi-bin/token" ;
 	private final static String kOauthoLink = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect" ;	
 	private final static String kSCOPE = "snsapi_userinfo" ;
 	
@@ -27,8 +28,8 @@ public class WeixinOauthController extends Controller {
 	 * OauthInfo 
 	 * appid appsecret redirecturl .	  
 	 */
-	private OauthConfigUtil oauthInfo(String key) {
-		OauthConfigUtil configUtil = new OauthConfigUtil(key) ;
+	private OauthConfigUtil oauthInfo() {
+		OauthConfigUtil configUtil = new OauthConfigUtil() ;
 		return configUtil ;		
 	}
 	
@@ -39,11 +40,11 @@ public class WeixinOauthController extends Controller {
 	public void oauthUrl() {		
 		String key = getPara("key") ;
 		
-		String encodingUrl = UrlEncode.urlEncodeUTF8(oauthInfo(key).getRedircturl()) ;
+		String encodingUrl = UrlEncode.urlEncodeUTF8(oauthInfo().getRedircturl()) ;
 		System.out.println(encodingUrl) ;
 		
 		String strOauthLink = kOauthoLink ;
-		strOauthLink = strOauthLink.replace("APPID", oauthInfo(key).getAppid()) ;
+		strOauthLink = strOauthLink.replace("APPID", oauthInfo().getAppid()) ;
 		strOauthLink = strOauthLink.replace("REDIRECT_URI", encodingUrl) ;
 		strOauthLink = strOauthLink.replace("SCOPE", kSCOPE) ;
 		strOauthLink = strOauthLink.replace("STATE", key) ;
@@ -72,7 +73,7 @@ public class WeixinOauthController extends Controller {
 		if (!"authdeny".equals(code)) {
 			// 获取网页授权access_token
 			WeixinOauth2Token weixinOauth2Token = AdvancedUtil
-					.getOauth2AccessToken(oauthInfo(key).getAppid(), oauthInfo(key).getSecret(), code) ;
+					.getOauth2AccessToken(oauthInfo().getAppid(), oauthInfo().getSecret(), code) ;
 			String accessToken = weixinOauth2Token.getAccessToken();
 			String openId = weixinOauth2Token.getOpenId();
 			
@@ -92,22 +93,21 @@ public class WeixinOauthController extends Controller {
 			Gson gson = new Gson() ;
 			map.put("oauth", gson.toJson(weixinOauth2Token)) ;
 			map.put("user", gson.toJson(userInfo)) ;
-			String jString = map.toString() ;
-			renderJson(gson.fromJson(jString, Map.class)) ;
-		}
-		
+
+//			String jString = map.toString() ;			
+//			renderJson(gson.fromJson(jString, Map.class)) ;
+			
+			setAttr("info", map) ;			
+			AppPageUtil pageUtil = new AppPageUtil(key) ;			
+			render(pageUtil.getPagePath()) ;
+			
+		}		
 	}
+		
 	
-//	public void testToken() {				
-//		HashMap<String, Object> paramMap = new HashMap<String, Object>() ; 
-//		paramMap.put("grant_type", "client_credential") ;
-//		paramMap.put("appid", oauthInfo().getAppid()) ;
-//		paramMap.put("secret", oauthInfo().getSecret()) ;
-//		
-//		String response = HttpRequest.sendRequest(TypeOfRequest.GetType, kURL_accesstoken, paramMap) ;
-//		System.out.println(response) ;
-//		
-//		renderJson(response) ;		
+//	public void enyu() {		
+//		render("/WEB-INF/weixin/enyu1.html") ;		
 //	}
-	
+		
 }
+ 

@@ -3,6 +3,7 @@
  */
 package cn.myapp.config;
 
+import cn.myapp.controller.AccessController;
 import cn.myapp.controller.WeixinOauthController;
 import java.io.IOException;
 import com.jfinal.config.Constants;
@@ -34,7 +35,8 @@ public class MyAppConfig extends JFinalConfig {
 	 */
 	@Override
 	public void configRoute(Routes me) {		
-		me.add("/weixin",WeixinOauthController.class) ;		
+		me.add("/weixin",WeixinOauthController.class,"/weixin") ;
+		me.add("/weixin/action",AccessController.class) ;
 	}
 	
 	/* (non-Javadoc)
