@@ -1,4 +1,6 @@
 package com.weixin.oauth.model;
+import org.apache.log4j.Logger;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import cn.myapp.model.DaoObject;
@@ -10,6 +12,9 @@ import cn.myapp.model.DaoObject;
  */
 @SuppressWarnings("serial")
 public class SNSUserInfo extends DaoObject {
+	
+	static Logger log = Logger.getLogger(SNSUserInfo.class.getName()) ;
+
 	// id pk 
 	private int userID ;
 	// 用户标识
@@ -114,7 +119,10 @@ public class SNSUserInfo extends DaoObject {
 	////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static SNSUserInfo selectByOpenId(String openIdStr) {
-		Record record = Db.findById("user", "openid", openIdStr) ;
+		String sql = "select * from activity.user where openid = ?" ;
+		log.info(sql + openIdStr);
+		Record record = Db.findFirst(sql,openIdStr) ;		
+		
 		if (record != null) {
 			return (SNSUserInfo)new SNSUserInfo().fetchFromRecord(record) ;
 		}

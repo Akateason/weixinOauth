@@ -10,21 +10,18 @@ public class OauthConfigUtil {
 	private String redircturl ;
 	
 	public String getAppid() {
-
 		return appid;
 	}
 	public void setAppid(String appid) {
 		this.appid = appid;
 	}
 	public String getSecret() {
-
 		return secret;
 	}
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
 	public String getRedircturl() {
-
 		return redircturl;
 	}
 	public void setRedircturl(String redircturl) {
@@ -35,8 +32,8 @@ public class OauthConfigUtil {
 		// TODO Auto-generated constructor stub
 		Prop prop = PropKit.use("oauth_config.txt") ;
 		this.setAppid(prop.get("kAPPID")) ;
-		this.setSecret(prop.get("kSecret"));
-		this.setRedircturl(prop.get("kRedirectUrl"));				
+		this.setSecret(prop.get("kSecret")) ;
+		this.setRedircturl(prop.get("kRedirectUrl")) ;				
 	}
 	
 	

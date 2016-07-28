@@ -210,7 +210,10 @@ public class AdvancedUtil {
 			} catch (Exception e) {
 				wat = null;
 				int errorCode = jsonObject.getInt("errcode");
-				String errorMsg = jsonObject.getString("errmsg");				
+				String errorMsg = jsonObject.getString("errmsg");
+				if (errorCode == 40029) {
+					return null ;
+				}
 				log.error("获取网页授权凭证失败 errcode:{} errmsg:{}", errorCode,
 						errorMsg);
 			}

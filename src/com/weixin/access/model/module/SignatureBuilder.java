@@ -11,7 +11,7 @@ public class SignatureBuilder {
 	
 	public String getWeixinRandomString() {		
 		Random rand = new Random();		
-		int length = rand.nextInt(32) ; 
+		int length = 8 + rand.nextInt(24) ; 
 		
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";  		
 		Random random = new Random();  

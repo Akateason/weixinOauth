@@ -1,1 +1,1 @@
-fish=/WEB-INF/weixin/enyu1.html
+fish=http://wei.subaojiang.com/weiOperation/enyu1.html

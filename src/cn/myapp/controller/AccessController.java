@@ -14,6 +14,7 @@ import com.weixin.access.model.module.SignatureBuilder;
 
 import cn.myapp.model.ResultObj;
 import cn.myapp.util.Sha1Util;
+import cn.myapp.util.weixin.OauthConfigUtil;
 
 //	/weixin/action
 public class AccessController extends Controller {
@@ -86,7 +87,7 @@ public class AccessController extends Controller {
 		String string1 = signatureBuilder.combineStrings(jsapi, noncestr, timeStr, url) ;
 		
 		//4. sign
-		String signStr = Sha1Util.sha1(string1) ;
+		String signStr = Sha1Util.sha1(string1) ;			
 		
 		HashMap<String, Object> map = new HashMap<String, Object>() ;
 		map.put("jsapi_ticket", jsapi) ;
@@ -94,8 +95,10 @@ public class AccessController extends Controller {
 		map.put("timestamp", timeStr) ;
 		map.put("url", url) ;
 		map.put("sign", signStr) ;
-		
-		renderJson(map) ;
+		map.put("appid", new OauthConfigUtil() .getAppid()) ;
+			
+		ResultObj resultObj = new ResultObj(map) ;		
+		renderJson(resultObj) ;
 	}
 	
 }
